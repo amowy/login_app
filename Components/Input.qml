@@ -228,103 +228,53 @@ Column {
         anchors.horizontalCenter: parent.horizontalCenter
 
         TextField {
-            id: passwordInput
+            id: password
             anchors.centerIn: parent
             height: root.font.pointSize * 3
             width: parent.width
             focus: config.ForcePasswordFocus == "true" ? true : false
             selectByMouse: true
-            echoMode: TextInput.Password
+            echoMode: revealSecret.checked ? TextInput.Normal : TextInput.Password
             placeholderText: config.TranslatePlaceholderPassword || textConstants.password
             horizontalAlignment: TextInput.AlignHCenter
             passwordCharacter: "•"
             passwordMaskDelay: config.ForceHideCompletePassword == "true" ? undefined : 1000
             renderType: Text.QtRendering
-            onAccepted: loginButton.clicked()
-            KeyNavigation.down: revealSecret
-            onTextChanged: formattedPassword.text = formatPassword(text)
-        }
-
-        Text {
-            id: formattedPassword
-            text: formatPassword(passwordInput.text)
-            font.pointSize: root.font.pointSize
-            color: root.palette.text
-            anchors.centerIn: parent
-            horizontalAlignment: Text.AlignHCenter
-        }
-
-        CheckBox {
-            id: revealSecret
-            width: parent.width
-            hoverEnabled: true
-
-            indicator: Rectangle {
-                id: indicator
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.topMargin: 3
-                anchors.leftMargin: 4
-                implicitHeight: root.font.pointSize
-                implicitWidth: root.font.pointSize
+            background: Rectangle {
                 color: "transparent"
                 border.color: root.palette.text
                 border.width: parent.activeFocus ? 2 : 1
-                Rectangle {
-                    id: dot
-                    anchors.centerIn: parent
-                    implicitHeight: parent.width - 6
-                    implicitWidth: parent.width - 6
-                    color: root.palette.text
-                    opacity: revealSecret.checked ? 1 : 0
+                radius: config.RoundCorners || 0
+            }
+            onAccepted: loginButton.clicked()
+            KeyNavigation.down: revealSecret
+        }
+
+        states: [
+            State {
+                name: "focused"
+                when: password.activeFocus
+                PropertyChanges {
+                    target: password.background
+                    border.color: root.palette.highlight
+                }
+                PropertyChanges {
+                    target: password
+                    color: root.palette.highlight
                 }
             }
+        ]
 
-            contentItem: Text {
-                id: indicatorLabel
-                text: config.TranslateShowPassword || "Show Password"
-                anchors.verticalCenter: indicator.verticalCenter
-                horizontalAlignment: Text.AlignLeft
-                anchors.left: indicator.right
-                anchors.leftMargin: indicator.width / 2
-                font.pointSize: root.font.pointSize * 0.8
-                color: root.palette.text
+        transitions: [
+            Transition {
+                PropertyAnimation {
+                    properties: "color, border.color"
+                    duration: 150
+                }
             }
-
-            Keys.onReturnPressed: toggle()
-            Keys.onEnterPressed: toggle()
-            KeyNavigation.down: loginButton
-
-            background: Rectangle {
-                color: "transparent"
-                border.width: parent.activeFocus ? 1 : 0
-                border.color: parent.activeFocus ? root.palette.text : "transparent"
-                height: parent.activeFocus ? 2 : 0
-                width: (indicator.width + indicatorLabel.contentWidth + indicatorLabel.anchors.leftMargin + 2)
-                anchors.top: indicatorLabel.bottom
-                anchors.left: parent.left
-                anchors.leftMargin: 3
-                anchors.topMargin: 8
-            }
-        }
-
-        function formatPassword(input) {
-            var maxLength = 15; // Set maximum length for the display
-            var maskedLength = 7; // Number of characters to be masked
-            var maskChar = '#'; // Character to show when typing
-            var displayLength = maxLength - input.length;
-        
-            if (input.length > 0) {
-                var maskedPart = input.substring(0, Math.min(input.length, maskedLength)).replace(/./g, maskChar);
-                var unmaskedPart = input.length > maskedLength ? input.substring(maskedLength, input.length) : "";
-                return '[' + maskedPart + (displayLength > 0 ? '.'.repeat(displayLength) : '') + ']';
-            } else {
-                return '[' + '.'.repeat(maxLength) + ']';
-            }
-        }
+        ]
     }
 
-/*
     Item {
         id: secretCheckBox
         height: root.font.pointSize * 7
@@ -457,7 +407,7 @@ Column {
             }
         ]
 
-    }*/
+    }
 
     Item {
         height: root.font.pointSize * 2.3
