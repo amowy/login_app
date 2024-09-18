@@ -178,48 +178,69 @@ Column {
 
         }
 
-        TextField {
-            id: username
-            text: config.ForceLastUser == "true" ? selectUser.currentText : null
-            font.capitalization: config.AllowBadUsernames == "false" ? Font.Capitalize : Font.MixedCase
+        Row {
+            id: userBrackets
+            spacing: 0
             anchors.centerIn: parent
-            height: root.font.pointSize * 3
-            width: parent.width
-            placeholderText: config.TranslatePlaceholderUsername || textConstants.userName
-            selectByMouse: true
-            horizontalAlignment: TextInput.AlignHCenter
-            renderType: Text.QtRendering
-            onFocusChanged:{
-                if(focus)
-                    selectAll()
-            }
-            background: Rectangle {
-                color: "transparent"
-                //border.color: root.palette.text
-                border.color: "transparent"
-                border.width: parent.activeFocus ? 2 : 1
-                radius: 0
-            }
-            onAccepted: loginButton.clicked()
-            KeyNavigation.down: password
-            z: 1
 
-            states: [
-                State {
-                    name: "focused"
-                    when: username.activeFocus
-                    PropertyChanges {
-                        target: username.background
-                        //border.color: root.palette.highlight
-                        border.color: "transparent"
-                    }
-                    PropertyChanges {
-                        target: username
-                        color: root.palette.highlight
-                    }
+            Text {
+                text: "["
+                font.pointSize: root.font.pointSize
+                color: root.palette.highlight
+            }
+
+
+            TextField {
+                id: username
+                text: config.ForceLastUser == "true" ? selectUser.currentText : null
+                font.capitalization: config.AllowBadUsernames == "false" ? Font.Capitalize : Font.MixedCase
+                anchors.centerIn: parent
+                height: root.font.pointSize * 3
+                width: parent.width
+                placeholderText: config.TranslatePlaceholderUsername || textConstants.userName
+                selectByMouse: true
+                horizontalAlignment: TextInput.AlignHCenter
+                renderType: Text.QtRendering
+                onFocusChanged:{
+                    if(focus)
+                        selectAll()
                 }
-            ]
+                background: Rectangle {
+                    color: "transparent"
+                    //border.color: root.palette.text
+                    border.color: "transparent"
+                    border.width: parent.activeFocus ? 2 : 1
+                    radius: 0
+                }
+                onAccepted: loginButton.clicked()
+                KeyNavigation.down: password
+                z: 1
+
+                states: [
+                    State {
+                        name: "focused"
+                        when: username.activeFocus
+                        PropertyChanges {
+                            target: username.background
+                            //border.color: root.palette.highlight
+                            border.color: "transparent"
+                        }
+                        PropertyChanges {
+                            target: username
+                            color: root.palette.highlight
+                        }
+                    }
+                ]
+            }
+            Text {
+                text: "]"
+                font.pointSize: root.font.pointSize
+                color: root.palette.highlight
+            }
+
         }
+
+        
 
     }
 
