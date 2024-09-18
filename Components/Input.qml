@@ -195,9 +195,10 @@ Column {
             }
             background: Rectangle {
                 color: "transparent"
-                border.color: root.palette.text
+                //border.color: root.palette.text
+                border.color: "transparent"
                 border.width: parent.activeFocus ? 2 : 1
-                radius: config.RoundCorners || 0
+                radius: 0
             }
             onAccepted: loginButton.clicked()
             KeyNavigation.down: password
@@ -209,7 +210,8 @@ Column {
                     when: username.activeFocus
                     PropertyChanges {
                         target: username.background
-                        border.color: root.palette.highlight
+                        //border.color: root.palette.highlight
+                        border.color: "transparent"
                     }
                     PropertyChanges {
                         target: username
@@ -237,14 +239,15 @@ Column {
             echoMode: revealSecret.checked ? TextInput.Normal : TextInput.Password
             placeholderText: config.TranslatePlaceholderPassword || textConstants.password
             horizontalAlignment: TextInput.AlignHCenter
-            passwordCharacter: "•"
+            passwordCharacter: "#"
             passwordMaskDelay: config.ForceHideCompletePassword == "true" ? undefined : 1000
             renderType: Text.QtRendering
             background: Rectangle {
                 color: "transparent"
-                border.color: root.palette.text
+                //border.color: root.palette.text
+                border.color: "transparent"
                 border.width: parent.activeFocus ? 2 : 1
-                radius: config.RoundCorners || 0
+                radius: /*config.RoundCorners ||*/ 0
             }
             onAccepted: loginButton.clicked()
             KeyNavigation.down: revealSecret
