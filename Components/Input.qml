@@ -178,73 +178,80 @@ Column {
 
         }
 
-        Row {
-            id: userBrackets
-            spacing: 0
+        TextField {
+            id: username
+            text: config.ForceLastUser == "true" ? selectUser.currentText : null
+            font.capitalization: config.AllowBadUsernames == "false" ? Font.Capitalize : Font.MixedCase
             anchors.centerIn: parent
             height: root.font.pointSize * 3
             width: parent.width
-
-            Text {
-                text: "["
-                font.pointSize: root.font.pointSize
-                color: root.palette.highlight
-                verticalAlignment: Text.AlignVCenter
+            placeholderText: config.TranslatePlaceholderUsername || textConstants.userName
+            selectByMouse: true
+            horizontalAlignment: TextInput.AlignHCenter
+            renderType: Text.QtRendering
+            onFocusChanged:{
+                if(focus)
+                    selectAll()
             }
-
-
-            TextField {
-                id: username
-                text: config.ForceLastUser == "true" ? selectUser.currentText : null
-                font.capitalization: config.AllowBadUsernames == "false" ? Font.Capitalize : Font.MixedCase
-                anchors.centerIn: parent
-                height: root.font.pointSize * 3
-                width: parent.width
-                placeholderText: config.TranslatePlaceholderUsername || textConstants.userName
-                selectByMouse: true
-                horizontalAlignment: TextInput.AlignLeft
-                renderType: Text.QtRendering
-                onFocusChanged:{
-                    if(focus)
-                        selectAll()
-                }
-                background: Rectangle {
-                    color: "transparent"
+            /*
+            background: Rectangle {
+                color: "transparent"
                     //border.color: root.palette.text
-                    border.color: "transparent"
-                    border.width: parent.activeFocus ? 2 : 1
-                    radius: 0
+                border.color: "transparent"
+                border.width: parent.activeFocus ? 2 : 1
+                radius: 0
+            }*/
+            background: Canvas {
+                anchors.fill: parent
+                onPaint: {
+                    var ctx = getContext("2d");
+                    var lineWidth = parent.activeFocus ? 2 : 1;
+                    var bracketHeight = height * 0.5;
+
+                    ctx.strokeStyle = "black";
+                    ctx.lineWidth = lineWidth;
+
+            // Left bracket
+                    ctx.beginPath();
+                    ctx.moveTo(0, height / 2 - bracketHeight / 2); // top
+                    ctx.lineTo(0, height / 2 + bracketHeight / 2); // bottom
+                    ctx.moveTo(0, height / 2 - bracketHeight / 2); // top
+                    ctx.lineTo(10, height / 2 - bracketHeight / 2); // top horizontal line
+                    ctx.moveTo(0, height / 2 + bracketHeight / 2); // bottom
+                    ctx.lineTo(10, height / 2 + bracketHeight / 2); // bottom horizontal line
+                    ctx.stroke();
+
+            // Right bracket
+                    ctx.beginPath();
+                    ctx.moveTo(width, height / 2 - bracketHeight / 2); // top
+                    ctx.lineTo(width, height / 2 + bracketHeight / 2); // bottom
+                    ctx.moveTo(width, height / 2 - bracketHeight / 2); // top
+                    ctx.lineTo(width - 10, height / 2 - bracketHeight / 2); // top horizontal line
+                    ctx.moveTo(width, height / 2 + bracketHeight / 2); // bottom
+                    ctx.lineTo(width - 10, height / 2 + bracketHeight / 2); // bottom horizontal line
+                    ctx.stroke();
                 }
-                onAccepted: loginButton.clicked()
-                KeyNavigation.down: password
-                z: 1
+            }
+            onAccepted: loginButton.clicked()
+            KeyNavigation.down: password
+            z: 1
 
-                states: [
-                    State {
-                        name: "focused"
-                        when: username.activeFocus
-                        PropertyChanges {
-                            target: username.background
-                            //border.color: root.palette.highlight
-                            border.color: "transparent"
-                        }
-                        PropertyChanges {
-                            target: username
-                            color: root.palette.highlight
-                        }
+            states: [
+                State {
+                    name: "focused"
+                    when: username.activeFocus
+                    PropertyChanges {
+                        target: username.background
+                        //border.color: root.palette.highlight
+                        border.color: "transparent"
                     }
-                ]
-            }
-            Text {
-                text: "]"
-                font.pointSize: root.font.pointSize
-                color: root.palette.highlight
-                verticalAlignment: Text.AlignVCenter
-            }
-
+                    PropertyChanges {
+                        target: username
+                        color: root.palette.highlight
+                    }
+                }
+            ]
         }
-
-        
 
     }
 
