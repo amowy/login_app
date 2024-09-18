@@ -205,8 +205,8 @@ Column {
                 anchors.fill: parent
                 onPaint: {
                     var ctx = getContext("2d");
-                    var lineWidth = 3;
-                    var bracketHeight = height;
+                    var lineWidth = 6;
+                    var bracketHeight = height*0.8;
 
                     ctx.strokeStyle = root.palette.highlight;
                     ctx.lineWidth = lineWidth;
@@ -216,9 +216,9 @@ Column {
                     ctx.moveTo(0, height / 2 - bracketHeight / 2); // top
                     ctx.lineTo(0, height / 2 + bracketHeight / 2); // bottom
                     ctx.moveTo(0, height / 2 - bracketHeight / 2); // top
-                    ctx.lineTo(10, height / 2 - bracketHeight / 2); // top horizontal line
+                    ctx.lineTo(20, height / 2 - bracketHeight / 2); // top horizontal line
                     ctx.moveTo(0, height / 2 + bracketHeight / 2); // bottom
-                    ctx.lineTo(10, height / 2 + bracketHeight / 2); // bottom horizontal line
+                    ctx.lineTo(20, height / 2 + bracketHeight / 2); // bottom horizontal line
                     ctx.stroke();
 
             // Right bracket
@@ -270,16 +270,49 @@ Column {
             selectByMouse: true
             echoMode: revealSecret.checked ? TextInput.Normal : TextInput.Password
             placeholderText: config.TranslatePlaceholderPassword || textConstants.password
-            horizontalAlignment: TextInput.AlignHCenter
+            horizontalAlignment: TextInput.AlignLeft
             passwordCharacter: "#"
             passwordMaskDelay: config.ForceHideCompletePassword == "true" ? undefined : 1000
             renderType: Text.QtRendering
+            /*
             background: Rectangle {
                 color: "transparent"
                 //border.color: root.palette.text
                 border.color: "transparent"
                 border.width: parent.activeFocus ? 2 : 1
                 radius: /*config.RoundCorners ||*/ 0
+            }
+            */
+            background: Canvas {
+                anchors.fill: parent
+                onPaint: {
+                    var ctx = getContext("2d");
+                    var lineWidth = 6;
+                    var bracketHeight = height*0.8;
+
+                    ctx.strokeStyle = root.palette.highlight;
+                    ctx.lineWidth = lineWidth;
+
+            // Left bracket
+                    ctx.beginPath();
+                    ctx.moveTo(0, height / 2 - bracketHeight / 2); // top
+                    ctx.lineTo(0, height / 2 + bracketHeight / 2); // bottom
+                    ctx.moveTo(0, height / 2 - bracketHeight / 2); // top
+                    ctx.lineTo(20, height / 2 - bracketHeight / 2); // top horizontal line
+                    ctx.moveTo(0, height / 2 + bracketHeight / 2); // bottom
+                    ctx.lineTo(20, height / 2 + bracketHeight / 2); // bottom horizontal line
+                    ctx.stroke();
+
+            // Right bracket
+                    ctx.beginPath();
+                    ctx.moveTo(width, height / 2 - bracketHeight / 2); // top
+                    ctx.lineTo(width, height / 2 + bracketHeight / 2); // bottom
+                    ctx.moveTo(width, height / 2 - bracketHeight / 2); // top
+                    ctx.lineTo(width - 10, height / 2 - bracketHeight / 2); // top horizontal line
+                    ctx.moveTo(width, height / 2 + bracketHeight / 2); // bottom
+                    ctx.lineTo(width - 10, height / 2 + bracketHeight / 2); // bottom horizontal line
+                    ctx.stroke();
+                }
             }
             onAccepted: loginButton.clicked()
             KeyNavigation.down: revealSecret
@@ -291,7 +324,8 @@ Column {
                 when: password.activeFocus
                 PropertyChanges {
                     target: password.background
-                    border.color: root.palette.highlight
+                    //border.color: root.palette.highlight
+                    border.color: "transparent"
                 }
                 PropertyChanges {
                     target: password
