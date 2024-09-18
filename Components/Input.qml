@@ -205,10 +205,10 @@ Column {
                 anchors.fill: parent
                 onPaint: {
                     var ctx = getContext("2d");
-                    var lineWidth = parent.activeFocus ? 2 : 1;
-                    var bracketHeight = height * 0.5;
+                    var lineWidth = 3;
+                    var bracketHeight = height;
 
-                    ctx.strokeStyle = "black";
+                    ctx.strokeStyle = root.palette.highlight;
                     ctx.lineWidth = lineWidth;
 
             // Left bracket
