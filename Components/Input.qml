@@ -274,15 +274,6 @@ Column {
             passwordCharacter: "#"
             passwordMaskDelay: config.ForceHideCompletePassword == "true" ? undefined : 1000
             renderType: Text.QtRendering
-            /*
-            background: Rectangle {
-                color: "transparent"
-                //border.color: root.palette.text
-                border.color: "transparent"
-                border.width: parent.activeFocus ? 2 : 1
-                radius: /*config.RoundCorners ||*/ 0
-            }
-            */
             background: Canvas {
                 anchors.fill: parent
                 onPaint: {
@@ -293,7 +284,7 @@ Column {
                     ctx.strokeStyle = root.palette.highlight;
                     ctx.lineWidth = lineWidth;
 
-            // Left bracket
+                    // Left bracket
                     ctx.beginPath();
                     ctx.moveTo(0, height / 2 - bracketHeight / 2); // top
                     ctx.lineTo(0, height / 2 + bracketHeight / 2); // bottom
@@ -303,7 +294,7 @@ Column {
                     ctx.lineTo(20, height / 2 + bracketHeight / 2); // bottom horizontal line
                     ctx.stroke();
 
-            // Right bracket
+                    // Right bracket
                     ctx.beginPath();
                     ctx.moveTo(width, height / 2 - bracketHeight / 2); // top
                     ctx.lineTo(width, height / 2 + bracketHeight / 2); // bottom
