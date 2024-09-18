@@ -42,30 +42,13 @@ ColumnLayout {
         Layout.preferredHeight: root.height / 4
         Layout.leftMargin: p != "0" ? a == "left" ? -p : a == "right" ? p : 0 : 0
     }
-/*
+
     Input {
         id: input
         Layout.alignment: Qt.AlignVCenter
         Layout.preferredHeight: root.height / 10
         Layout.leftMargin: p != "0" ? a == "left" ? -p : a == "right" ? p : 0 : 0
         Layout.topMargin: virtualKeyboardActive ? -height * 1.5 : 0
-    }
-*/
-    Rectangle {
-        id: inputBorder
-        border.color: "red" // Red border
-        border.width: 2     // Border width
-
-        Layout.alignment: Qt.AlignVCenter
-        Layout.preferredHeight: root.height / 10
-        Layout.leftMargin: p != "0" ? a == "left" ? -p : a == "right" ? p : 0 : 0
-        Layout.topMargin: virtualKeyboardActive ? -height * 1.5 : 0
-
-        // Input inside the Rectangle
-        Input {
-            id: input
-            anchors.fill: parent
-        }
     }
 
     SystemButtons {
