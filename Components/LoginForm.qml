@@ -66,6 +66,7 @@ ColumnLayout {
             id: input
             anchors.fill: parent
         }
+    }
 
     SystemButtons {
         id: systemButtons
