@@ -60,4 +60,18 @@ ColumnLayout {
         exposedSession: input.exposeSession
     }
 
+    Rectangle {
+        id: loginFormBorder
+        anchors.centerIn: parent
+        border.color: "red"
+        border.width: 3
+        radius: 10
+        opacity: 0.5
+        color: "transparent"
+        width: form.width
+        height: form.height
+        z: 1
+
+    }
+
 }
