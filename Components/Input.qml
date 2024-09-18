@@ -182,11 +182,14 @@ Column {
             id: userBrackets
             spacing: 0
             anchors.centerIn: parent
+            height: root.font.pointSize * 3
+            width: parent.width
 
             Text {
                 text: "["
                 font.pointSize: root.font.pointSize
                 color: root.palette.highlight
+                verticalAlignment: Text.AlignVCenter
             }
 
 
@@ -199,7 +202,7 @@ Column {
                 width: parent.width
                 placeholderText: config.TranslatePlaceholderUsername || textConstants.userName
                 selectByMouse: true
-                horizontalAlignment: TextInput.AlignHCenter
+                horizontalAlignment: TextInput.AlignLeft
                 renderType: Text.QtRendering
                 onFocusChanged:{
                     if(focus)
@@ -236,6 +239,7 @@ Column {
                 text: "]"
                 font.pointSize: root.font.pointSize
                 color: root.palette.highlight
+                verticalAlignment: Text.AlignVCenter
             }
 
         }
