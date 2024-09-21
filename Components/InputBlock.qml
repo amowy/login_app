@@ -46,7 +46,6 @@ Rectangle {
 
         Input {
             id: input
-            Layout.fillWidth: true
             anchors.centerIn: parent
         }
     }
