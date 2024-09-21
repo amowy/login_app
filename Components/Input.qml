@@ -33,6 +33,8 @@ Column {
 
     property Control exposeSession: sessionSelect.exposeSession
     property bool failed
+    border.color: root.palette.highlight
+    border.width: 2
 
     Item {
         id: usernameField
@@ -193,45 +195,12 @@ Column {
                 if(focus)
                     selectAll()
             }
-            /*
             background: Rectangle {
                 color: "transparent"
                     //border.color: root.palette.text
                 border.color: "transparent"
                 border.width: parent.activeFocus ? 2 : 1
                 radius: 0
-            }*/
-            background: Canvas {
-                anchors.fill: parent
-                onPaint: {
-                    var ctx = getContext("2d");
-                    var lineWidth = 6;
-                    var bracketHeight = height*0.8;
-                    var brackLen = 16;
-
-                    ctx.strokeStyle = root.palette.highlight;
-                    ctx.lineWidth = lineWidth;
-
-            // Left bracket
-                    ctx.beginPath();
-                    ctx.moveTo(0, height / 2 - bracketHeight / 2); // top
-                    ctx.lineTo(0, height / 2 + bracketHeight / 2); // bottom
-                    ctx.moveTo(0, height / 2 - bracketHeight / 2); // top
-                    ctx.lineTo(brackLen, height / 2 - bracketHeight / 2); // top horizontal line
-                    ctx.moveTo(0, height / 2 + bracketHeight / 2); // bottom
-                    ctx.lineTo(brackLen, height / 2 + bracketHeight / 2); // bottom horizontal line
-                    ctx.stroke();
-
-            // Right bracket
-                    ctx.beginPath();
-                    ctx.moveTo(width, height / 2 - bracketHeight / 2); // top
-                    ctx.lineTo(width, height / 2 + bracketHeight / 2); // bottom
-                    ctx.moveTo(width, height / 2 - bracketHeight / 2); // top
-                    ctx.lineTo(width - brackLen, height / 2 - bracketHeight / 2); // top horizontal line
-                    ctx.moveTo(width, height / 2 + bracketHeight / 2); // bottom
-                    ctx.lineTo(width - brackLen, height / 2 + bracketHeight / 2); // bottom horizontal line
-                    ctx.stroke();
-                }
             }
             onAccepted: loginButton.clicked()
             KeyNavigation.down: password
@@ -311,24 +280,6 @@ Column {
             KeyNavigation.down: revealSecret
         }
 
-        Text {
-            id: placeholderDots
-            anchors.centerIn: password
-            font.pixelSize: password.font.pixelSize
-            color: "white"
-            text: {
-                // Create a string of dots to match the width of the password field
-                var maxLength = Math.floor(password.width / password.font.pixelSize);
-                var dotString = "....................................................................................................................................................................";
-                return dotString.substring(0, maxLength - password.text.length) +            dotString.substring(dotString.length - password.text.length);
-            }
-            // Adjust the width to match the password field width
-            width: password.width
-            height: password.height
-            // Ensure dots are on top of the password field
-            z: 1
-            //opacity: password.echoMode === TextInput.Normal ? 0 : 1
-        }
 
         states: [
             State {
@@ -560,7 +511,8 @@ Column {
                 id: buttonBackground
                 color: "white"
                 opacity: 0.2
-                radius: config.RoundCorners || 0
+                //radius: config.RoundCorners || 0
+                radius: 0
             }
 
             states: [
