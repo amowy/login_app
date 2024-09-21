@@ -43,8 +43,8 @@ ColumnLayout {
         Layout.leftMargin: p != "0" ? a == "left" ? -p : a == "right" ? p : 0 : 0
     }
 
-    Input {
-        id: input
+    InputBlock {
+        id: inputBlock
         Layout.alignment: Qt.AlignVCenter
         Layout.preferredHeight: root.height / 10
         Layout.leftMargin: p != "0" ? a == "left" ? -p : a == "right" ? p : 0 : 0
