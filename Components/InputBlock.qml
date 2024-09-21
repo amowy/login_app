@@ -8,8 +8,8 @@ Rectangle {
     height: root.font.pointSize * 23
     anchors.centerIn: parent
     color: "transparent"
-    border.color: "red"  // Outer border color
-    border.width: 3  // Outer border width
+    border.color: "transparent"  // Outer border color
+    border.width: 0  // Outer border width
 
     Rectangle {
         id: innerBorder
@@ -17,8 +17,8 @@ Rectangle {
         height: parent.height - 10
         anchors.centerIn: parent
         color: "transparent"
-        border.color: "white"  // Inner border color
-        border.width: 3  // Inner border width
+        border.color: "transparent"  // Inner border color
+        border.width: 0  // Inner border width
 
         // Add SYSTEM BOOTING text at the top of the inner border
         ColumnLayout {
@@ -28,7 +28,7 @@ Rectangle {
                 id: systemBootingText
                 text: "<SYSTEM BOOTING>"
                 font.pointSize: 16
-                color: outerBorder.palette.highlight
+                color: root.palette.highlight
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
             }
 
