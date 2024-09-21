@@ -5,10 +5,9 @@ import SddmComponents 2.0 as SDDM
 Rectangle {
     id: outerBorder
     width: parent.width
-    height: parent.height
     anchors.centerIn: parent
     color: "transparent"
-    border.color: "white"  // Outer border color
+    border.color: "red"  // Outer border color
     border.width: 3  // Outer border width
 
     Rectangle {
