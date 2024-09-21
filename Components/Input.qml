@@ -33,9 +33,6 @@ Column {
 
     property Control exposeSession: sessionSelect.exposeSession
     property bool failed
-    border.color: root.palette.highlight
-    border.width: 2
-
     Item {
         id: usernameField
 
