@@ -49,8 +49,6 @@ ColumnLayout {
         Layout.preferredHeight: root.height / 10
         Layout.leftMargin: p != "0" ? a == "left" ? -p : a == "right" ? p : 0 : 0
         Layout.topMargin: virtualKeyboardActive ? -height * 1.5 : 0
-        border.color: root.palette.highlight
-        border.width: 4
     }
 
     SystemButtons {
